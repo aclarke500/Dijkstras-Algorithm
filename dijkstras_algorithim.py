@@ -1,17 +1,9 @@
-
-
 def get_index_of_vertex(V, v):
     for i in range(len(V)):
         if v == V[i]:
             return i
 
     return None
-
-
-def done(distances):
-    for d in distances:
-        if d == float('inf'):
-            return False
 
 '''
     Implements Dijkstra's algorithim
@@ -43,8 +35,7 @@ def dijkstra(V, E, source):
 
 
     for i in range(0, len(V)):
-        # bad practice but it works for the assignment
-        temp = 99999
+        temp = float('inf')
         current_node = None
 
         for v in unvisted:
@@ -53,19 +44,22 @@ def dijkstra(V, E, source):
  
         neighbours = vi_neighbours[get_index_of_vertex(V, current_node)]
         distance = shortest_distance[get_index_of_vertex(V, current_node)]
+
         for n in neighbours:
+            # distance including our node
             temp_dist = distance+1
             neighbour_index = get_index_of_vertex(V, n)
 
+            # if the path we found is shorter, update that
             if shortest_distance[neighbour_index] > temp_dist:
                 shortest_distance[neighbour_index] = temp_dist
 
-
+        # make sure we don't repeat nddes
         unvisted.remove(current_node)
 
 
         # vertices will be strings v1 ... vn,
-    print(shortest_distance)
+    return shortest_distance
 
 
     # sample list for practice
@@ -79,4 +73,4 @@ E = [
 
 
 for i in range(0, 6):
-    dijkstra(V, E, V[i])
+    print(dijkstra(V, E, V[i]))
